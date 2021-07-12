@@ -3,46 +3,46 @@
 
 int main(int argc, char *argv[])
 {
-    auto [in_input, in_output, in_radius, in_ratio, ok] = parse(argc,argv);
-    if(not ok) return 1;
+    const auto args = parse(argc,argv);
+    if(not args.ok) return 1;
 
     // load input PLY file
-    auto [points, normals] = load_ply(in_input);
+    auto point_cloud = load_ply(args.input);
 
     // set the radius of the weighting kernel
     float r;
-    if(in_ratio) {
-        const auto aabb_diag = compute_aabb_diag(points);
-        r = in_radius * aabb_diag;
-        Log::info() << "radius = " << r << " (" << in_radius << "*" << aabb_diag << ")";
+    if(args.ratio) {
+        const auto aabb_diag = compute_aabb_diag(point_cloud.points);
+        r = args.radius * aabb_diag;
+        Log::info() << "radius = " << r << " (" << args.radius << "*" << aabb_diag << ")";
     } else {
-        r = in_radius;
+        r = args.radius;
         Log::info() << "radius = " << r;
     }
 
     // build kdtree
-    const auto kdtree = KdTree(points);
+    const auto kdtree = KdTree(point_cloud.points);
 
     // results
-    std::vector<aso::DifferentialProperties<float>> diff_prop(points->size());
+    std::vector<aso::DifferentialProperties<float>> diff_prop(point_cloud.points->size());
 
     // loop over all points
-    auto prog = prog::Progress(points->size());
+    auto prog = prog::Progress(point_cloud.points->size());
     #pragma omp parallel for
-    for(auto i = 0u; i < points->size(); ++i)
+    for(auto i = 0u; i < point_cloud.points->size(); ++i)
     {
         // range neighbors query
         auto query = kdtree.range_neighbors(i,r);
-        auto begin = OrientedPointIterator(query.begin(), points, normals);
-        auto end = OrientedPointIterator(query.end(), points, normals);
+        auto begin = OrientedPointIterator(query.begin(), point_cloud.points, point_cloud.normals);
+        auto end = OrientedPointIterator(query.end(), point_cloud.points, point_cloud.normals);
 
         // compute differential properties from the Algebraic Shape Operator
-        diff_prop[i] = aso::compute((*points)[i], r, begin, end);
+        diff_prop[i] = aso::compute((*point_cloud.points)[i], r, begin, end);
 
         ++prog;
     }
 
-    save_results(in_output, diff_prop);
+    save_results(args.output, diff_prop);
 
     return 0;
 }

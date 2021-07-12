@@ -11,13 +11,24 @@
 #include "include/plyio.h"
 #include "include/KdTree.h"
 
-#include <tuple>
 #include <memory>
+
+struct Args {
+    std::string input;
+    std::string output;
+    float radius;
+    bool ratio;
+    bool ok;
+};
+
+struct PointCloud {
+    std::shared_ptr<std::vector<Eigen::Vector3f>> points;
+    std::shared_ptr<std::vector<Eigen::Vector3f>> normals;
+};
 
 using KdTree = kdtree::KdTree<Eigen::Vector3f,3>;
 
-std::tuple<std::string,std::string,float,bool,bool>
-parse(int argc, char** argv) {
+Args parse(int argc, char** argv) {
     opt::Option opt(argc, argv, "Compute differential properties on oriented point cloud using the Algebraic Shape Operator (ASO)");
     const std::string in_input  = opt("input",  "i").set_required().set_brief(
                                   "Input PLY file (3D points and their normal vectors)");
@@ -30,11 +41,10 @@ parse(int argc, char** argv) {
                                "Set the radius as a ratio of the axis-aligned "
                                "bounding box diagonal length");
     const auto ok = opt.ok();
-    return std::make_tuple(in_input, in_output, in_radius, in_ratio, ok);
+    return Args{in_input, in_output, in_radius, in_ratio, ok};
 }
 
-std::tuple<std::shared_ptr<std::vector<Eigen::Vector3f>>, std::shared_ptr<std::vector<Eigen::Vector3f>>>
-load_ply(const std::string& filename)
+PointCloud load_ply(const std::string& filename)
 {
     std::ifstream ifs(filename);
     if(not ifs.is_open()) {
@@ -109,7 +119,7 @@ load_ply(const std::string& filename)
 
     Log::info() << count << " points and normal vectors loaded from '" << filename << "'";
 
-    return std::make_tuple(points, normals);
+    return PointCloud{points, normals};
 }
 
 float compute_aabb_diag(std::shared_ptr<std::vector<Eigen::Vector3f>> points)
