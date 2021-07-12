@@ -19,7 +19,9 @@ if(APPLE)
         set(OpenMP_omp_LIBRARY "/usr/local/opt/libomp/lib/libomp.dylib" CACHE INTERNAL "OpenMP lib name for Xcode toolchain.")
     endif()
 endif()
-  
+find_package(OpenMP REQUIRED)
+
+
 include_directories("${PROJECT_SOURCE_DIR}/../../include")
 
 add_executable(computeASO main.cpp)
