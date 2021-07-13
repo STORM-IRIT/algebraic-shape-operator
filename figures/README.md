@@ -13,14 +13,15 @@ On Linux (Ubuntu or Debian), run this command to install it on the system
 sudo apt-get install libcgal-dev
 ```
 
-Other dependencies like [Eigen](https://github.com/eigenteam/eigen-git-mirror), [DGtal](https://github.com/DGtal-team/DGtal), [Ponca](https://github.com/poncateam/ponca) and [CLI11](https://github.com/CLIUtils/CLI11) are included as git submodules.  
-To get them, run 
+Other dependencies like [Eigen](https://github.com/eigenteam/eigen-git-mirror), [DGtal](https://github.com/DGtal-team/DGtal), [Ponca](https://github.com/poncateam/ponca) and [CLI11](https://github.com/CLIUtils/CLI11) are directly included as git submodules.  
+
+Clone this project, download submodules, and go to the `figure` directory
 ```bash
-git submodule init
-git submodule update
+git clone --recurse-submodules https://github.com/STORM-IRIT/algebraic-shape-operator.git
+cd algebraic-shape-operator/figures
 ```
 
-OpenMP is optional but highly adviced for better performances.
+Note that OpenMP is optional but highly adviced for better performances.
 
 # 2. Build the project
 
