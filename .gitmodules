@@ -3,7 +3,7 @@
 	url = https://github.com/eigenteam/eigen-git-mirror.git
 [submodule "external/Ponca"]
 	path = external/Ponca
-	url = https://github.com/ThibaultLejemble/ponca.git
+	url = https://github.com/poncateam/ponca.git
 [submodule "external/DGtal"]
 	path = external/DGtal
 	url = https://github.com/DGtal-team/DGtal.git
