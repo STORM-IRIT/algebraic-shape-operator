@@ -3,7 +3,7 @@ Examples
 
 ## Main example
 
-The [main example](main/main.cpp) computes the differential properties of a 3D point cloud using the single C++ header file [AlgebraicShapeOperator.h](../include/AlgebraicShapeOperator.h).
+The main example [main/main.cpp](main/main.cpp) computes the differential properties of a 3D point cloud using the single C++ header file [AlgebraicShapeOperator.h](../include/AlgebraicShapeOperator.h).
 
 It only requires that Eigen is installed.
 
@@ -30,7 +30,7 @@ k1,k2,d1x,d1y,d1z,d2x,d2y,d2z,nx,ny,nz
 
 ## Example using Ponca
 
-The [Ponca example](Ponca/main.cpp) is similar to the previous example, except that only [Ponca](https://github.com/poncateam/ponca) is used to compute the ASO.
+The Ponca example [Ponca/main.cpp](Ponca/main.cpp) is similar to the previous example, except that only [Ponca](https://github.com/poncateam/ponca) is used to compute the ASO.
 This library gives more flexibility on the weighting kernel and allows to add user-defined code to the compute method.
 
 :warning: work-in-progress!
@@ -38,7 +38,7 @@ This library gives more flexibility on the weighting kernel and allows to add us
 
 ## Example using libigl
 
-The [libigl example](libigl/main.cpp) computes the differential properties using the [AlgebraicShapeOperator.h](../include/AlgebraicShapeOperator.h), and display them using the [libigl](https://github.com/libigl/libigl).
+The libigl example [libigl/main.cpp](libigl/main.cpp) computes the differential properties using the [AlgebraicShapeOperator.h](../include/AlgebraicShapeOperator.h), and display them using the [libigl](https://github.com/libigl/libigl).
 
 To build the example, simply run
 ```bash
@@ -49,10 +49,10 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 ```
 
-To display the differential properties, run in the `build` directory
+To compute and display the differential properties, run in the `build` directory
 ```bash
 ./displayASO -i ../../../data/bunny.ply
 ```
 Press the up arrow to display different properties.
 
-:warning: this example uses a k-nearest neighors search instead of a radius-based range search. The weighting kernel width depends on the density. Numerical results are different.
+:warning: this example uses a k-nearest neighors search instead of a radius-based range search. The weighting kernel width depends on the density. Numerical results are different than those from the other examples.
