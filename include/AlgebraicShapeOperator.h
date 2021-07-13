@@ -26,7 +26,7 @@ namespace aso {
 //! Notes:
 //! - k1 and k2 are signed
 //! - |k1| >= |k2| is always true
-//! - {k1,k2,n} does NOT necessarily respect the 'right-hand rule'
+//! - {d1,d2,n} does NOT necessarily respect the 'right-hand rule'
 //! - d1, d2 and n are normalized (except when the computation fails)
 //!
 template<typename ScalarT>
