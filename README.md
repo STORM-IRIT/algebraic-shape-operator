@@ -25,7 +25,7 @@ The single C++ header file [include/AlgebraicShapeOperator.h](include/AlgebraicS
 template<class Point, class Scalar, class OrientedPointIterator>
 auto compute(const Point& p, const Scalar r, const OrientedPointIterator first, const OrientedPointIterator last);
 ```
-See the [examples](examples) that show how to use it. 
+See the [examples](examples) that show how to use it with [Eigen](https://github.com/eigenteam/eigen-git-mirror), [Ponca](https://github.com/poncateam/ponca) or [libigl](https://github.com/libigl/libigl). 
 
 To replicate some results of the article [(PDF)](https://hal.archives-ouvertes.fr/hal-03272493/document), please checkout the [figures](figures) directory.
 
