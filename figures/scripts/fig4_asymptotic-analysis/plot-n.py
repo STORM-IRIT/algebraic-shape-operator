@@ -1,8 +1,4 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.ticker as mtick
-from matplotlib import rc
-import matplotlib as mpl
 
 values_method = ['Barycenter','OJets','PCAPlane','PSS','WJets','VCM','APSS','ASO']
 values_n_int  = [10000,25000,50000,75000,100000,250000,500000,750000,1000000]
