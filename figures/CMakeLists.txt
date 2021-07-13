@@ -12,21 +12,15 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 
 # DGtal ------------------------------------------------------------------------
 SET(BUILD_EXAMPLES OFF CACHE BOOL "DGtal examples")
-add_subdirectory("${PROJECT_SOURCE_DIR}/external/DGtal")
+add_subdirectory("${PROJECT_SOURCE_DIR}/../external/DGtal" "${PROJECT_BINARY_DIR}/external/DGtal")
 include("${PROJECT_BINARY_DIR}/external/DGtal/DGtalConfig.cmake")
 include_directories("${DGTAL_INCLUDE_DIRS}")
 
 # CLI11 ------------------------------------------------------------------------
 mark_as_advanced(CLI_CXX_STD CLI_EXAMPLES CLI_SINGLE_FILE CLI_SINGLE_FILE_TESTS CLI_TESTING)
 SET(CLI11_SINGLE_FILE ON CACHE BOOL "Single File")
-add_subdirectory("${PROJECT_SOURCE_DIR}/external/CLI11")
+add_subdirectory("${PROJECT_SOURCE_DIR}/../external/CLI11" "${PROJECT_BINARY_DIR}/external/CLI11")
 include_directories("${PROJECT_BINARY_DIR}/external/CLI11/include/")
-
-# happly ------------------------------------------------------------------------
-include_directories("${PROJECT_SOURCE_DIR}/external/happly/")
-
-# cppglsl ------------------------------------------------------------------------
-include_directories("${PROJECT_SOURCE_DIR}/external/cppglsl/")
 
 # CGAL -------------------------------------------------------------------------
 find_package(CGAL REQUIRED)
@@ -65,8 +59,8 @@ set(lib_source_files ${lib_headers} ${lib_sources} ${lib_inlines})
 add_library(pcplib STATIC ${lib_source_files})
 
 target_include_directories(pcplib PUBLIC src/
-                                         external/Eigen/
-                                         external/Ponca/
+                                         ../external/Eigen/
+                                         ../external/Ponca/
                                          OpenMP::OpenMP_CXX)
 
 # Applications -----------------------------------------------------------------
