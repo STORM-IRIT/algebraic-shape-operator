@@ -20,9 +20,9 @@ To compute the differential properties using the *Algebraic Shape Operator* (ASO
 ```bash
 ./computeASO -i ../../../data/bunny.ply -r 0.0025
 ```
-where `-i` specifies the input point cloud as a PLY file containing normal vectors, and `-r` specifies the radius of the neighborhood used to compute the ASO.
+where `-i` specifies the input point cloud as a PLY file containing normal vectors, and `-r` specifies the radius of the neighborhood used to compute the ASO. Run `./computeASO -h` for more information.
 
-It produces a text file `output.txt` with one line per point containing the following comma-seperated values:
+It produces a text file `output.txt` with one line per point containing the 11 comma-seperated values:
 ```
 k1,k2,d1x,d1y,d1z,d2x,d2y,d2z,nx,ny,nz
 ```
