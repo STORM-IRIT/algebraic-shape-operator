@@ -20,6 +20,8 @@ git submodule init
 git submodule update
 ```
 
+OpenMP is optional but highly adviced for better performances.
+
 # 2. Build the project
 
 ```bash
