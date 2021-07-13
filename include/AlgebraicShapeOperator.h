@@ -524,10 +524,11 @@ ASO_MULTIARCH inline auto compute(const Point& p,
                                   const NormalIterator normal_first,
                                   const NormalIterator normal_last)
 {
-    const auto first = iterator::OrientedPointIterator(position_first,
-                                                       normal_first);
-    const auto last = iterator::OrientedPointIterator(position_last,
-                                                      normal_last);
+    using OrientedPointIterator = iterator::OrientedPointIterator<
+                                      PositionIterator,
+                                      NormalIterator>;
+    const auto first = OrientedPointIterator(position_first, normal_first);
+    const auto last = OrientedPointIterator(position_last, normal_last);
     return compute(p, r, first, last);
 }
 
