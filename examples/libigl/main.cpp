@@ -11,30 +11,22 @@
 
 struct KnnIterator
 {
-    KnnIterator(const Eigen::MatrixXi* knn, const Eigen::MatrixXd* V,
+    KnnIterator(const Eigen::MatrixXi* I, const Eigen::MatrixXd* V,
                 const Eigen::MatrixXd* N, int row, int col) :
-        m_knn(knn), m_V(V), m_N(N), m_row(row), m_col(col) {}
+        m_I(I), m_V(V), m_N(N), m_row(row), m_col(col) {}
 
-//    struct Value
-//    {
-//        Value(const Eigen::MatrixXd* V, const Eigen::MatrixXd* N, int idx) :
-//            m_V(V), m_N(N), m_idx(idx) {}
-//        Eigen::Vector3d position() const {return m_V->row(m_idx).transpose();}
-//        Eigen::Vector3d normal() const {return m_N->row(m_idx).transpose();}
-//        const Eigen::MatrixXd* m_V;
-//        const Eigen::MatrixXd* m_N;
-//        int m_idx;
-//    };
-
-    Eigen::Vector3d position() const {return m_V->row((*m_knn)(m_row,m_col)).transpose();}
-    Eigen::Vector3d normal() const {return m_N->row((*m_knn)(m_row,m_col)).transpose();}
+    Eigen::Vector3d position() const {
+        return m_V->row((*m_I)(m_row,m_col)).transpose();
+    }
+    Eigen::Vector3d normal() const {
+        return m_N->row((*m_I)(m_row,m_col)).transpose();
+    }
 
     bool operator != (const KnnIterator& it) const {return m_col != it.m_col;}
     void operator ++ () {++m_col;}
-//    Value operator * () const {return Value(m_V, m_N, (*m_knn)(m_row,m_col));}
     const KnnIterator& operator * () const {return *this;}
 
-    const Eigen::MatrixXi* m_knn;
+    const Eigen::MatrixXi* m_I;
     const Eigen::MatrixXd* m_V;
     const Eigen::MatrixXd* m_N;
     int m_row;
@@ -52,7 +44,8 @@ int main(int argc, char *argv[])
     std::vector<std::string> Vheader,Fheader,Eheader;
     std::vector<std::string> comments;
 
-    const auto ok = igl::readPLY(argv[1],V,F,E,N,UV,VD,Vheader,FD,Fheader,ED,Eheader,comments);
+    const auto ok = igl::readPLY(argv[1],V,F,E,N,UV,VD,
+                                 Vheader,FD,Fheader,ED,Eheader,comments);
     if(not ok) {
         return 1;
     }
@@ -112,7 +105,8 @@ int main(int argc, char *argv[])
     igl::opengl::glfw::Viewer viewer;
     viewer.data().set_points(V,COLH);
     viewer.data().point_size = 5.f;
-    viewer.callback_key_up = [&](igl::opengl::glfw::Viewer& viewer, unsigned int, int)->bool
+    viewer.callback_key_up = [&](igl::opengl::glfw::Viewer& viewer,
+                                 unsigned int, int) -> bool
     {
         idx = (idx+1) % 4;
         if(idx == 0) {
