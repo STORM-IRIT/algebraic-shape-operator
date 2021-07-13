@@ -5,11 +5,11 @@
 
 #include <AlgebraicShapeOperator.h>
 
-#include "include/opt.h"
-#include "include/prog.h"
-#include "include/log.h"
-#include "include/plyio.h"
-#include "include/KdTree.h"
+#include <opt.h>
+#include <prog.h>
+#include <log.h>
+#include <plyio.h>
+#include <KdTree.h>
 
 #include <memory>
 

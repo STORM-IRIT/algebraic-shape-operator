@@ -22,7 +22,8 @@ endif()
 find_package(OpenMP REQUIRED)
 
 
-include_directories("${PROJECT_SOURCE_DIR}/../../include")
+include_directories("${PROJECT_SOURCE_DIR}/../../include" # AlgebraicShapeOperator.h
+                    ../common) 
 
 add_executable(computeASO main.cpp)
 if(OPENMP_FOUND)
