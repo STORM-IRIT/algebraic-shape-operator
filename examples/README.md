@@ -26,3 +26,28 @@ It produces a text file `output.txt` with one line per point containing the foll
 ```
 k1,k2,d1x,d1y,d1z,d2x,d2y,d2z,nx,ny,nz
 ```
+
+## Example using Ponca
+
+:warning: wip
+
+## Example using libigl
+
+The [libigl example](libigl/main.cpp) computes the differential properties using [AlgebraicShapeOperator.h](../include/AlgebraicShapeOperator.h), and display them using the [libigl](https://github.com/libigl/libigl).
+
+To build the example, simply run
+```bash
+cd libigl
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+```
+
+To display the differential properties, run in the `build` directory
+```bash
+./displayASO -i ../../../data/bunny.ply
+```
+Press the up arrow to display different properties.
+
+:warning: this example uses a k-nearest neighors search. Numerical results are different than those obtained with the other examples that use a radius-based range search.
