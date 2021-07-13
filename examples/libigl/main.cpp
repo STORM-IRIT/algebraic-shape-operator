@@ -1,4 +1,5 @@
 #include <AlgebraicShapeOperator.h>
+#include "example.h"
 
 #include <igl/opengl/glfw/Viewer.h>
 #include <igl/readPLY.h>
@@ -7,8 +8,8 @@
 #include <igl/parallel_for.h>
 #include <igl/colormap.h>
 
-#include "../common/log.h"
-
+//! \brief Iterator over igl::knn computed from igl::octree
+//! Provide methods positions() and normal() required by aso::compute()
 struct KnnIterator
 {
     KnnIterator(const Eigen::MatrixXi* I, const Eigen::MatrixXd* V,
@@ -35,7 +36,8 @@ struct KnnIterator
 
 int main(int argc, char *argv[])
 {
-    constexpr auto k = 20;
+    const auto args = parse(argc, argv);
+    if(not args.ok) return 1;
 
     Eigen::MatrixXd V, N;
 
@@ -44,19 +46,22 @@ int main(int argc, char *argv[])
     std::vector<std::string> Vheader,Fheader,Eheader;
     std::vector<std::string> comments;
 
-    const auto ok = igl::readPLY(argv[1],V,F,E,N,UV,VD,
+    // load input PLY file
+    const auto ok = igl::readPLY(args.input, V, F, E,N,UV,VD,
                                  Vheader,FD,Fheader,ED,Eheader,comments);
     if(not ok) {
+        Log::error() << "Failed to read " << args.input;
         return 1;
     }
 
+    // build octree + knn search
     std::vector<std::vector<int>> point_indices;
     Eigen::MatrixXi CH;
     Eigen::MatrixXd CN;
     Eigen::VectorXd W;
     Eigen::MatrixXi I;
     igl::octree(V, point_indices, CH, CN, W);
-    igl::knn(V, k, point_indices, CH, CN, W, I);
+    igl::knn(V, args.k, point_indices, CH, CN, W, I);
 
     Eigen::VectorXd K1(V.rows());
     Eigen::VectorXd K2(V.rows());
@@ -66,15 +71,16 @@ int main(int argc, char *argv[])
     Eigen::MatrixXd D2(V.rows(),3);
     Eigen::MatrixXd NC(V.rows(),3);
 
+    // main loop
     igl::parallel_for(V.rows(), [&](int i)
     {
         const Eigen::Vector3d p = V.row(i).transpose();
         double r = 0;
-        for(auto j = 0; j < k; ++j)
+        for(auto j = 0; j < args.k; ++j)
             r = std::max(r, (p - V.row(I(i,j)).transpose()).norm());
         r *= 1.5;
         const auto begin = KnnIterator(&I, &V, &N, i, 0);
-        const auto end = KnnIterator(&I, &V, &N, i, k);
+        const auto end = KnnIterator(&I, &V, &N, i, args.k);
 
         // compute the Algebraic Shape Operator (ASO)
         const auto diff_prop = aso::compute(p, r, begin, end);
@@ -93,6 +99,7 @@ int main(int argc, char *argv[])
     Eigen::MatrixXd COLK2;
     Eigen::MatrixXd COLK;
 
+    // create colors
     constexpr auto cm = igl::ColorMapType::COLOR_MAP_TYPE_JET;
     constexpr auto normalize = true;
     igl::colormap(cm,H,normalize,COLH);
@@ -102,6 +109,7 @@ int main(int argc, char *argv[])
 
     int idx = 0;
 
+    // display
     igl::opengl::glfw::Viewer viewer;
     viewer.data().set_points(V,COLH);
     viewer.data().point_size = 5.f;

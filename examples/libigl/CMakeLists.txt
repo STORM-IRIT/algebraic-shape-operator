@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-project(aso-libigl)
+project(aso-example-libigl)
+
+set(CMAKE_CXX_STANDARD 17)
 
 list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
@@ -14,5 +16,5 @@ include_directories("${PROJECT_SOURCE_DIR}/../../include" # AlgebraicShapeOperat
 
 # Add your project files
 file(GLOB SRC_FILES *.cpp)
-add_executable(${PROJECT_NAME} ${SRC_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC igl::core igl::opengl_glfw)
+add_executable(displayASO ${SRC_FILES})
+target_link_libraries(displayASO PUBLIC igl::core igl::opengl_glfw)
