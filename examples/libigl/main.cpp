@@ -5,6 +5,7 @@
 #include <igl/octree.h>
 #include <igl/knn.h>
 #include <igl/parallel_for.h>
+#include <igl/colormap.h>
 
 #include "../common/log.h"
 
@@ -14,20 +15,24 @@ struct KnnIterator
                 const Eigen::MatrixXd* N, int row, int col) :
         m_knn(knn), m_V(V), m_N(N), m_row(row), m_col(col) {}
 
-    struct Value
-    {
-        Value(const Eigen::MatrixXd* V, const Eigen::MatrixXd* N, int idx) :
-            m_V(V), m_N(N), m_idx(idx) {}
-        Eigen::Vector3d position() const {return m_V->row(m_idx).transpose();}
-        Eigen::Vector3d normal() const {return m_N->row(m_idx).transpose();}
-        const Eigen::MatrixXd* m_V;
-        const Eigen::MatrixXd* m_N;
-        int m_idx;
-    };
+//    struct Value
+//    {
+//        Value(const Eigen::MatrixXd* V, const Eigen::MatrixXd* N, int idx) :
+//            m_V(V), m_N(N), m_idx(idx) {}
+//        Eigen::Vector3d position() const {return m_V->row(m_idx).transpose();}
+//        Eigen::Vector3d normal() const {return m_N->row(m_idx).transpose();}
+//        const Eigen::MatrixXd* m_V;
+//        const Eigen::MatrixXd* m_N;
+//        int m_idx;
+//    };
+
+    Eigen::Vector3d position() const {return m_V->row((*m_knn)(m_row,m_col)).transpose();}
+    Eigen::Vector3d normal() const {return m_N->row((*m_knn)(m_row,m_col)).transpose();}
 
     bool operator != (const KnnIterator& it) const {return m_col != it.m_col;}
     void operator ++ () {++m_col;}
-    Value operator * () const {return Value(m_V, m_N, (*m_knn)(m_row,m_col));}
+//    Value operator * () const {return Value(m_V, m_N, (*m_knn)(m_row,m_col));}
+    const KnnIterator& operator * () const {return *this;}
 
     const Eigen::MatrixXi* m_knn;
     const Eigen::MatrixXd* m_V;
@@ -71,7 +76,10 @@ int main(int argc, char *argv[])
     igl::parallel_for(V.rows(), [&](int i)
     {
         const Eigen::Vector3d p = V.row(i).transpose();
-        const double r = 0.0025;
+        double r = 0;
+        for(auto j = 0; j < k; ++j)
+            r = std::max(r, (p - V.row(I(i,j)).transpose()).norm());
+        r *= 1.5;
         const auto begin = KnnIterator(&I, &V, &N, i, 0);
         const auto end = KnnIterator(&I, &V, &N, i, k);
 
@@ -87,8 +95,40 @@ int main(int argc, char *argv[])
         NC.row(i) = diff_prop.n().transpose();
     });
 
+    Eigen::MatrixXd COLH;
+    Eigen::MatrixXd COLK1;
+    Eigen::MatrixXd COLK2;
+    Eigen::MatrixXd COLK;
+
+    constexpr auto cm = igl::ColorMapType::COLOR_MAP_TYPE_JET;
+    constexpr auto normalize = true;
+    igl::colormap(cm,H,normalize,COLH);
+    igl::colormap(cm,K1,normalize,COLK1);
+    igl::colormap(cm,K2,normalize,COLK2);
+    igl::colormap(cm,K,normalize,COLK);
+
+    int idx = 0;
+
     igl::opengl::glfw::Viewer viewer;
-    viewer.data().set_points(V, Eigen::Vector3d(1,0,0).transpose());
-    viewer.data().point_size = 1.f;
+    viewer.data().set_points(V,COLH);
+    viewer.data().point_size = 5.f;
+    viewer.callback_key_up = [&](igl::opengl::glfw::Viewer& viewer, unsigned int, int)->bool
+    {
+        idx = (idx+1) % 4;
+        if(idx == 0) {
+            Log::info() << "Mean curvature H";
+            viewer.data().set_points(V,COLH);
+        } else if(idx == 1) {
+            Log::info() << "Maximal principal curvature k1";
+            viewer.data().set_points(V,COLK1);
+        } else if(idx == 2) {
+            Log::info() << "Minimal principal curvature k2";
+            viewer.data().set_points(V,COLK2);
+        } else if(idx == 3) {
+            Log::info() << "Gaussian curvature K";
+            viewer.data().set_points(V,COLK);
+        }
+        return true;
+    };
     viewer.launch();
 }
