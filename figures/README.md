@@ -15,7 +15,7 @@ sudo apt-get install libcgal-dev
 
 Other dependencies like [Eigen](https://github.com/eigenteam/eigen-git-mirror), [DGtal](https://github.com/DGtal-team/DGtal), [Ponca](https://github.com/poncateam/ponca) and [CLI11](https://github.com/CLIUtils/CLI11) are directly included as git submodules.  
 
-Clone this project, download submodules, and go to the `figure` directory
+Clone this project, download submodules, and go to the `figures` directory
 ```bash
 git clone --recurse-submodules https://github.com/STORM-IRIT/algebraic-shape-operator.git
 cd algebraic-shape-operator/figures
