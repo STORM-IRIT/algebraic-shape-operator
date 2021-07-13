@@ -3,7 +3,7 @@ Replicate results
 
 To replicate some of the results presented in the article *Stable and efficient differential estimators on oriented point clouds* ([PDF](https://hal.archives-ouvertes.fr/hal-03272493/document)), please follow these 3 steps.
 
-# 1. Set-up
+## 1. Set-up
 
 This project requires CMake, a C++ compiler, and Python (with matplotlib).
 
@@ -23,7 +23,7 @@ cd algebraic-shape-operator/figures
 
 Note that OpenMP is optional but highly adviced for better performances.
 
-# 2. Build the project
+## 2. Build the project
 
 ```bash
 mkdir build
@@ -34,7 +34,7 @@ make -j
 
 :warning: make sure to call the build directory '`build`', which is required for the next step.
 
-# 3. Generate results
+## 3. Generate results
 
 The following scripts are provided to generate data used in several figures:
 

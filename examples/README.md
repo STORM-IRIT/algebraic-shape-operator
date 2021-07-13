@@ -1,7 +1,7 @@
 Examples
 ========
 
-# Main example
+## Main example
 
 The [main example](main/main.cpp) computes the differential properties of a 3D point cloud using the single C++ header file [AlgebraicShapeOperator.h](../include/AlgebraicShapeOperator.h).
 
