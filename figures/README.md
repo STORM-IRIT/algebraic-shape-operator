@@ -1,7 +1,7 @@
 Replicate results
 =================
 
-To replicate some of the results presented in the article *Stable and efficient differential estimators on oriented point clouds* ([PDF](TODO)), please follow these 3 steps.
+To replicate some of the results presented in the article *Stable and efficient differential estimators on oriented point clouds* ([PDF](https://hal.archives-ouvertes.fr/hal-03272493/document)), please follow these 3 steps.
 
 # 1. Set-up
 

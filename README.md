@@ -2,7 +2,7 @@
 
 This c++ project is the authors implementation of the following article
 
-## Stable and efficient differential estimators on oriented point clouds [(PDF)](TODO)
+## Stable and efficient differential estimators on oriented point clouds [(PDF)](https://hal.archives-ouvertes.fr/hal-03272493/document)
 
 *Thibault Lejemble*  
 *David Coeurjolly*  
@@ -27,7 +27,7 @@ auto compute(const Point& p, const Scalar r, const OrientedPointIterator first, 
 ```
 See the [examples](examples) that show how to use it. 
 
-To replicate some results of the article [(PDF)](TODO), please checkout the [figures](figures) directory.
+To replicate some results of the article [(PDF)](https://hal.archives-ouvertes.fr/hal-03272493/document), please checkout the [figures](figures) directory.
 
 ___
 
