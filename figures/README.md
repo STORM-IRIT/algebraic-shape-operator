@@ -61,3 +61,6 @@ Tested with
 - Fedora 31
   - cmake 3.17.4
   - g++ 9.3.1
+- Ubuntu 20.04
+  - cmake 3.16.3
+  - g++ 9.3.0
