@@ -51,3 +51,10 @@ cd scripts/fig2_geometric-features
 ./generate.sh
 ls results/
 ```
+
+___
+
+Tested with 
+- Fedora 31
+  - cmake 3.17.4
+  - g++ 9.3.1
