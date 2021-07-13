@@ -20,7 +20,7 @@ Point clouds are now ubiquitous in computer graphics and computer vision. Differ
 
 ## Getting Started
 
-The single C++ header file [include/AlgebraicShapeOperator.h](include/AlgebraicShapeOperator.h) based on [Eigen](https://github.com/eigenteam/eigen-git-mirror) provides one function to compute differential properties at one location from a set of oriented points using the *Algebraic Shape Operator*.  
+The single C++ header file [include/AlgebraicShapeOperator.h](include/AlgebraicShapeOperator.h) based on [Eigen](https://github.com/eigenteam/eigen-git-mirror) provides one function to compute differential properties at one point from a range of oriented points using the *Algebraic Shape Operator*
 ```c++
 template<class Point, class Scalar, class OrientedPointIterator>
 auto compute(const Point& p, const Scalar r, const OrientedPointIterator first, const OrientedPointIterator last);
