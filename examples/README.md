@@ -55,4 +55,4 @@ To compute and display the differential properties, run in the `build` directory
 ```
 Press the up arrow to display different properties.
 
-:warning: this example uses a k-nearest neighors search instead of a radius-based range search. The weighting kernel width depends on the density. Numerical results are different than those from the other examples.
+:warning: this example uses a k-nearest neighors search instead of a radius-based range search. The weighting kernel width depends on the density. Numerical results are different than those obtained from the other examples.
