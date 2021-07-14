@@ -33,7 +33,7 @@ To replicate some results of the article [(PDF)](https://hal.archives-ouvertes.f
 
 ## License
 
-The standalone sour codes are given under the permissive MIT License, see [License.md](License.md). 
+The standalone source codes are given under the permissive MIT License, see [License.md](License.md). 
 
 ___
 
