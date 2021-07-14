@@ -21,6 +21,9 @@ git clone --recurse-submodules https://github.com/STORM-IRIT/algebraic-shape-ope
 cd algebraic-shape-operator/figures
 ```
 
+If you have already cloned the main project, `git submodule update --init --recursive` will set the submodules properly.
+
+
 Note that OpenMP is optional but highly adviced for better performances.
 
 ## 2. Build the project
