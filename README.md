@@ -31,6 +31,10 @@ See the [examples](examples) that show how to use it with [Eigen](https://github
 
 To replicate some results of the article [(PDF)](https://hal.archives-ouvertes.fr/hal-03272493/document), please checkout the [figures](figures) directory for instructions.
 
+## License
+
+The standalone sour codes are given under the permissive MIT License, see [License.md](License.md). 
+
 ___
 
 Please cite this paper if you use this code
