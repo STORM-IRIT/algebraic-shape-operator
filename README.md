@@ -27,12 +27,14 @@ auto compute(const Point& p, const Scalar r, const OrientedPointIterator first, 
 ```
 See the [examples](examples) that show how to use it with [Eigen](https://github.com/eigenteam/eigen-git-mirror), [Ponca](https://github.com/poncateam/ponca) or [libigl](https://github.com/libigl/libigl). 
 
-To replicate some results of the article [(PDF)](https://hal.archives-ouvertes.fr/hal-03272493/document), please checkout the [figures](figures) directory.
+## Replicability
+
+To replicate some results of the article [(PDF)](https://hal.archives-ouvertes.fr/hal-03272493/document), please checkout the [figures](figures) directory for instructions.
 
 ___
 
 Please cite this paper if you use this code
-```
+```bibtex
 @article{lejemble2021stable,
   author = {Lejemble, Thibault and Coeurjolly, David and Barthe, Loïc and Mellado, Nicolas},
   title = {Stable and efficient differential estimators on oriented point clouds},
