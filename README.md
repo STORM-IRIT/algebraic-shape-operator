@@ -1,4 +1,5 @@
 # Algebraic Shape Operator
+[![c++/cmake](https://github.com/STORM-IRIT/algebraic-shape-operator/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/STORM-IRIT/algebraic-shape-operator/actions/workflows/c-cpp.yml)
 
 This c++ project is the authors implementation of the following article
 
