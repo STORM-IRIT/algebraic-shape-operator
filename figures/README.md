@@ -12,6 +12,10 @@ On Linux (Ubuntu or Debian), run this command to install it on the system
 ```bash
 sudo apt-get install libcgal-dev
 ```
+On macOS: 
+```bash
+brew install cgal
+```
 
 Other dependencies like [Eigen](https://github.com/eigenteam/eigen-git-mirror), [DGtal](https://github.com/DGtal-team/DGtal), [Ponca](https://github.com/poncateam/ponca) and [CLI11](https://github.com/CLIUtils/CLI11) are directly included as git submodules.  
 
@@ -67,3 +71,6 @@ Tested with
 - Ubuntu 20.04
   - cmake 3.16.3
   - g++ 9.3.0
+- macOS 
+  - clang / Monterey
+  - clang / Big Sur
